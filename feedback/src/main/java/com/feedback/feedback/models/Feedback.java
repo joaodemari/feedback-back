@@ -20,20 +20,14 @@ public class Feedback {
     @JoinColumn(name = "to_member_id")
     private Member toMember;
 
-    @ElementCollection(targetClass = TopicsEnum.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(
-            name = "feedback_topics",
-            joinColumns = @JoinColumn(name = "feedback_id")
-    )
-    @Column(name = "topic")
-    private List<TopicsEnum> topics;
+    private List<Integer> topics;
+
     private String message;
     private String createdAt;
     private boolean anonymous;
 
-    public Feedback(int id, Member fromMember, Member toMember, List<TopicsEnum> topics, String message,
-                    String createdAt) {
+    public Feedback(int id, Member fromMember, Member toMember, List<Integer> topics, String message,
+            String createdAt) {
         this.id = id;
         this.fromMember = fromMember;
         this.toMember = toMember;
@@ -42,7 +36,8 @@ public class Feedback {
         this.createdAt = createdAt;
     }
 
-    public Feedback() {}
+    public Feedback() {
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -57,7 +52,9 @@ public class Feedback {
     }
 
     public void setTopics(List<TopicsEnum> topics) {
-        this.topics = topics;
+        this.topics = topics.stream()
+                .map(TopicsEnum::getId)
+                .toList();
     }
 
     public void setMessage(String message) {
@@ -76,7 +73,7 @@ public class Feedback {
         return message;
     }
 
-    public List<TopicsEnum> getTopics() {
+    public List<Integer> getTopics() {
         return topics;
     }
 
