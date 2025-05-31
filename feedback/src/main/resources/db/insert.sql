@@ -1,4 +1,4 @@
-INSERT INTO MEMBER (ID, NAME, PHOTO_URL) VALUES 
+INSERT INTO member (id, name, photo_url) VALUES 
   (1, 'João Demari', ''),
   (2, 'Guilherme Kuhn', ''),
   (3, 'Leonardo Wingert', '');
@@ -13,4 +13,3 @@ INSERT INTO FEEDBACK (ID, FROM_MEMBER_ID, TO_MEMBER_ID, TOPICS, MESSAGE, CREATED
     (1, 1, 2, '[1,2,3]', null, '2024-06-01T10:00:00'),
     (2, 2, 3, '[2,4]', 'Precisa melhorar a comunicação.', '2024-06-02T11:30:00'),
     (3, 3, 1, '[1,3,5]', 'Excelente liderança.', '2024-06-03T09:15:00');
-
