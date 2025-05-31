@@ -1,10 +1,13 @@
 package com.feedback.feedback.services;
 
+import com.feedback.feedback.IdGenerator;
 import com.feedback.feedback.dtos.FeedbackDTO;
 import com.feedback.feedback.models.Feedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.feedback.feedback.repositories.IFeedbackRepository;
+
+import java.time.LocalDate;
 
 @Service
 public class FeedbackService {
@@ -18,13 +21,20 @@ public class FeedbackService {
     }
 
     public Feedback createFeedback(FeedbackDTO feedbackDto) {
+        System.out.println("aaaaaaaa");
         Feedback feedback = new Feedback();
-        feedback.setId(feedbackDto.getId());
-        feedback.setCreatedAt(feedbackDto.getCreatedAt());
+        int n = IdGenerator.getNextId();
+        while(feedbackRepository.findById(n).isPresent()){
+            n = IdGenerator.getNextId();
+        }
+        feedback.setId(n);
+        System.out.println(feedback.getId());
+        feedback.setCreatedAt(LocalDate.now().toString());
         feedback.setMessage(feedbackDto.getMessage());
         feedback.setTopics(feedbackDto.getTopics());
         feedback.setFromMember(memberService.findById(feedbackDto.getIdFromMember()));
         feedback.setToMember(memberService.findById(feedbackDto.getIdToMember()));
+        feedback.setAnonymous(feedbackDto.isAnonymous());
         return feedbackRepository.save(feedback);
     }
 }
