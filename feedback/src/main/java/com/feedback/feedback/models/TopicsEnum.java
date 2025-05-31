@@ -1,6 +1,9 @@
 package com.feedback.feedback.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum TopicsEnum {
+    // trocar topicos pelos tópicos reais
     WORK_QUALITY("Work Quality"),
     COMMUNICATION("Communication"),
     TEAMWORK("Teamwork"),
@@ -12,9 +15,12 @@ public enum TopicsEnum {
 
     private final String topic;
 
+
     TopicsEnum(String topic) {
         this.topic = topic;
     }
+
+
 
     public String getTopic() {
         return topic;
