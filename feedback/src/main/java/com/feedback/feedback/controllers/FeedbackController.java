@@ -23,6 +23,7 @@ public class FeedbackController {
         feedbackService.populateFeedbacks();
     }
 
+     @CrossOrigin(origins = "*")
     @GetMapping("/")
     public List<Feedback> getFeedback() {
         return feedbackService.getFeedbacks();

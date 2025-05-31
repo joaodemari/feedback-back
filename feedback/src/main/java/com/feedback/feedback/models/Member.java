@@ -2,6 +2,8 @@ package com.feedback.feedback.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -14,6 +16,7 @@ public class Member {
     @Id
     private int id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "toMember")
     List<Feedback> feedbacksToThisMember;
 
