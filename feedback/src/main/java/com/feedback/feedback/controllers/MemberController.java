@@ -1,17 +1,15 @@
 package com.feedback.feedback.controllers;
 
-import java.time.LocalDate;
-
+import com.feedback.feedback.dtos.FeedbackDTO;
+import com.feedback.feedback.dtos.HeroDTO;
+import com.feedback.feedback.services.MemberService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.feedback.feedback.dtos.HeroDTO;
-import com.feedback.feedback.models.Member;
-import com.feedback.feedback.services.MemberService;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/members")
@@ -34,4 +32,15 @@ public class MemberController {
         return ResponseEntity.ok(heroDTO);
 
     }
+
+    @GetMapping("/{memberId}/feedbacks")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<List<FeedbackDTO>> getFeedbacksByMember(@PathVariable int memberId) {
+        List<FeedbackDTO> feedbacks = memberService.findFeedbacksByMemberId(memberId);
+        if (feedbacks == null || feedbacks.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(feedbacks);
+    }
+
 }

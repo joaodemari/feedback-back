@@ -1,18 +1,16 @@
 package com.feedback.feedback.services;
 
+import com.feedback.feedback.dtos.FeedbackDTO;
 import com.feedback.feedback.dtos.HeroDTO;
 import com.feedback.feedback.models.Feedback;
 import com.feedback.feedback.models.Member;
 import com.feedback.feedback.models.TopicsEnum;
 import com.feedback.feedback.repositories.IMemberRepository;
+import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {
@@ -21,6 +19,25 @@ public class MemberService {
 
     public MemberService(IMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+    }
+
+    public List<FeedbackDTO> findFeedbacksByMemberId(int memberId) {
+        Member member = memberRepository.findById(memberId);
+        if (member == null || member.getFeedbacksToThisMember() == null) {
+            return List.of();
+        }
+        return member.getFeedbacksToThisMember().stream()
+                .map(feedback -> new FeedbackDTO(
+                        feedback.getFromMember().getId(),
+                        feedback.getToMember().getId(),
+                        feedback.getTopics().stream().map(
+                                topic -> TopicsEnum.fromId(topic).orElseThrow(
+                                        () -> new IllegalArgumentException("Invalid topic ID: " + topic)
+                                )).toList(),
+                        feedback.getMessage(),
+                        feedback.isAnonymous()
+                ))
+                .toList();
     }
 
     public void populateMembers() {
@@ -101,9 +118,7 @@ public class MemberService {
             return null;
         }
 
-        HeroDTO feedbackHeroDto = new HeroDTO(feedbackHero.getName(), feedbackHero.getPhotoUrl(), totalLikes);
-
-        return feedbackHeroDto;
+        return new HeroDTO(feedbackHero.getName(), feedbackHero.getPhotoUrl(), totalLikes);
     }
 
 }
