@@ -1,7 +1,10 @@
 package com.feedback.feedback.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
@@ -10,6 +13,9 @@ public class Member {
 
     @Id
     private int id;
+
+    @OneToMany(mappedBy = "toMember")
+    List<Feedback> feedbacksToThisMember;
 
     private String name;
     private String photoUrl;

@@ -1,4 +1,5 @@
-package com.feedback.feedback.controller;
+package com.feedback.feedback.controllers;
+
 import com.feedback.feedback.dtos.FeedbackDTO;
 import com.feedback.feedback.models.Feedback;
 import org.springframework.web.bind.annotation.*;
