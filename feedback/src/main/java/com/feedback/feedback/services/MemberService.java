@@ -32,26 +32,25 @@ public class MemberService {
                         feedback.getToMember().getId(),
                         feedback.getTopics().stream().map(
                                 topic -> TopicsEnum.fromId(topic).orElseThrow(
-                                        () -> new IllegalArgumentException("Invalid topic ID: " + topic)
-                                )).toList(),
+                                        () -> new IllegalArgumentException("Invalid topic ID: " + topic)))
+                                .toList(),
                         feedback.getMessage(),
-                        feedback.isAnonymous()
-                ))
+                        feedback.isAnonymous()))
                 .toList();
     }
 
     public void populateMembers() {
         List<Member> members = List.of(
                 new Member(1, "Samuel Ribeiro",
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0mABcIa-JzRlzyG1idAyXkK00R1M6A-5vjA&s"),
+                        "https://i.imgur.com/7zzeEb8.jpeg"),
                 new Member(2, "Bernardo Paiva",
-                        "https://veja.abril.com.br/wp-content/uploads/2024/08/neymar-santos.jpg?quality=70&strip=info&w=414&h=280&crop=1"),
-                new Member(3, "Leonardo Wingert", "https://a.espncdn.com/photo/2025/0131/r1445897_1296x729_16-9.jpg"),
+                        "https://i.imgur.com/aMXs8Ui.jpeg"),
+                new Member(3, "Leonardo Wingert", "https://i.imgur.com/6x6nb73.jpeg"),
                 new Member(4, "Guilherme Kuhn",
-                        "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/09/GettyImages-1668971338-e1694439970587.jpg?w=1200&h=900&crop=1"),
-                new Member(5, "João Demari", "https://img.nsctotal.com.br/wp-content/uploads/2024/12/Neymar.jpg"),
-                new Member(6, "Lucas Silva",
-                        "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2025/03/neymar-santos_2e1987-e1741616548279.jpg?w=1200&h=675&crop=1"));
+                        "https://i.imgur.com/KIX6nja.jpeg"),
+                new Member(5, "João Demari", "https://imgur.com/VlUqd9Q.jpeg"),
+                new Member(6, "Julio Pinto",
+                        "https://imgur.com/Qx4BXu6.jpeg"));
 
         memberRepository.saveAll(members);
     }
