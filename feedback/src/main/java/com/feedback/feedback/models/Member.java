@@ -9,13 +9,18 @@ import lombok.Data;
 public class Member {
 
     @Id
-    private String id;
+    private int id;
+
     private String name;
     private String photoUrl;
 
-    public Member(String id, String name, String photoUrl) {
+    public Member(int id, String name, String photoUrl) {
         this.id = id;
         this.name = name;
         this.photoUrl = photoUrl;
+    }
+
+    public Member() {
+
     }
 }
