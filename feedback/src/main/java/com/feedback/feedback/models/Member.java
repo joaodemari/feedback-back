@@ -1,7 +1,12 @@
 package com.feedback.feedback.models;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
@@ -9,13 +14,22 @@ import lombok.Data;
 public class Member {
 
     @Id
-    private String id;
+    private int id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "toMember")
+    List<Feedback> feedbacksToThisMember;
+
     private String name;
     private String photoUrl;
 
-    public Member(String id, String name, String photoUrl) {
+    public Member(int id, String name, String photoUrl) {
         this.id = id;
         this.name = name;
         this.photoUrl = photoUrl;
+    }
+
+    public Member() {
+
     }
 }
