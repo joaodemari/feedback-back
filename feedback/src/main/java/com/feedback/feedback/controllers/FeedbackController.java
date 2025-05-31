@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import com.feedback.feedback.services.FeedbackService;
 import com.feedback.feedback.services.MemberService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {
@@ -22,11 +24,11 @@ public class FeedbackController {
     }
 
     @GetMapping("/")
-    public String getFeedback() {
-
-        return "Feedbacks populated successfully!";
+    public List<Feedback> getFeedback() {
+        return feedbackService.getFeedbacks();
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/")
     public Feedback submitFeedback(@RequestBody FeedbackDTO feedbackDto) {
         return feedbackService.createFeedback(feedbackDto);

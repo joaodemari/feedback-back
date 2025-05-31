@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.feedback.feedback.repositories.IFeedbackRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,4 +69,9 @@ public class FeedbackService {
                 feedback.setAnonymous(feedbackDto.isAnonymous());
                 return feedbackRepository.save(feedback);
         }
+
+        public List<Feedback> getFeedbacks() {
+                return feedbackRepository.findAll();
+        }
+
 }
